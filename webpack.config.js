@@ -9,13 +9,16 @@ function rewriteUrl(replacePath) {
     };
 }
 
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 module.exports = {
-    entry:'./src/index.js',
+    //entry:'./src/index.js',
     //entry:{
     //    index:'./src/index.js',
     //    comp:"./src/component.js"
     //},
+    entry: './src/index.js',
     output:{
         path:'./build',
         publicPath: "/static/",
@@ -38,21 +41,28 @@ module.exports = {
         extension:['','.js','.jsx','.css'],
         alias:{}
     },
+    devtool:"cheap-module-source-map",
     devServer:{
         publicPath: "/static/",
         stats: { colors: true },
         port: 8080,
         contentBase: 'build',
         inline: true,
-        proxy: [
-            {
-                path: /^\/api\/(.*)/,
-                target: "http://localhost:8080/",
-                rewrite: rewriteUrl('/$1\.json'),
-                changeOrigin: true
-            }
-        ]
-    }
+        //proxy: [
+        //    {
+        //        path: /^\/api\/(.*)/,
+        //        target: "http://localhost:8080/",
+        //        rewrite: rewriteUrl('/$1\.json'),
+        //        changeOrigin: true
+        //    }
+        //]
+    },
+    plugins:[
+        new HtmlWebpackPlugin({
+            title:'vensonhub-react',
+            template:'./src/index.html'
+        })
+    ]
 }
 
 
