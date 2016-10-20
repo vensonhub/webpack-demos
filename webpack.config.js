@@ -18,6 +18,7 @@ module.exports = {
     //},
     output:{
         path:'./build',
+        publicPath: "/static/",
         filename:'bundle.js'
         //filename:'[name].js'
     },
@@ -33,12 +34,16 @@ module.exports = {
             }
         ]
     },
+    resolve:{
+        extension:['','.js','.jsx','.css'],
+        alias:{}
+    },
     devServer:{
-        progress:true,
-        contentBase:'build',
-        stats:{colors:true},
-        inline:true,
-        publicPath:'/static/',
+        publicPath: "/static/",
+        stats: { colors: true },
+        port: 8080,
+        contentBase: 'build',
+        inline: true,
         proxy: [
             {
                 path: /^\/api\/(.*)/,
@@ -49,3 +54,5 @@ module.exports = {
         ]
     }
 }
+
+
