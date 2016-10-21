@@ -21,7 +21,7 @@ module.exports = {
     entry: './src/index.js',
     output:{
         path:'./build',
-        publicPath: "/static/",
+        //publicPath: "/static/",
         filename:'bundle.js'
         //filename:'[name].js'
     },
@@ -48,14 +48,15 @@ module.exports = {
         port: 8080,
         contentBase: 'build',
         inline: true,
-        //proxy: [
-        //    {
-        //        path: /^\/api\/(.*)/,
-        //        target: "http://localhost:8080/",
-        //        rewrite: rewriteUrl('/$1\.json'),
-        //        changeOrigin: true
-        //    }
-        //]
+        proxy: [
+            {
+                //path: /^\/api\/(.*)/,
+                path: /^\/api\//,
+                target: "http://localhost:8080/",
+                rewrite: rewriteUrl('/$1\.json'),
+                changeOrigin: true
+            }
+        ]
     },
     plugins:[
         new HtmlWebpackPlugin({
